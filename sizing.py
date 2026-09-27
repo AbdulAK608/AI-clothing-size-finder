@@ -169,11 +169,14 @@ def recommend_size(user_measurements, size_chart, clothing_type="unknown", fit_p
     ranked = sorted(details, key=lambda d: (-d["final_score"], -d["score"]))
     best = ranked[0]
 
-    # Between-size detection
+    # Between-size detection.
+    # We check the RAW score (before fit-preference bias), because fit
+    # preference should choose a winner but NOT hide the fact that the
+    # user also fits the neighboring size.
     alternative = None
     if len(ranked) > 1:
         second = ranked[1]
-        if second["final_score"] == best["final_score"]:
+        if second["score"] == best["score"]:
             alternative = second["size"]
 
     # Confidence
@@ -309,4 +312,3 @@ if __name__ == "__main__":
     print("Confidence: ", r["confidence"])
     print("Explanation:", r["explanation"])
 
-    
