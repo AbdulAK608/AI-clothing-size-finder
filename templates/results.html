@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Size Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">&larr; Start over</a>
+
+        {% if error %}
+            <div class="card error">
+                <h1>Couldn't recommend a size</h1>
+                <p>{{ error }}</p>
+            </div>
+        {% else %}
+            <div class="card result">
+                <h1>Recommended Size: <span class="size">{{ result.recommended_size }}</span></h1>
+
+                <p class="confidence confidence-{{ result.confidence | lower }}">
+                    Confidence: <strong>{{ result.confidence }}</strong>
+                </p>
+
+                {% if result.alternative_size %}
+                    <p class="alternative">
+                        Also fits: <strong>{{ result.alternative_size }}</strong>
+                    </p>
+                {% endif %}
+
+                <h2>Why?</h2>
+                <p>{{ result.explanation }}</p>
+            </div>
+
+            <div class="card">
+                <h2>Your measurements (as entered)</h2>
+                <ul>
+                    {% for key, value in user_display.items() %}
+                        {% if value %}
+                            <li><strong>{{ key.replace('_', ' ').title() }}:</strong> {{ value }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Demo size chart used</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Size</th>
+                            {% for m in chart_measurements %}
+                                <th>{{ m.replace('_', ' ').title() }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for size, ranges in size_chart.items() %}
+                            <tr>
+                                <td>{{ size }}</td>
+                                {% for m in chart_measurements %}
+                                    <td>
+                                        {% if m in ranges %}
+                                            {{ ranges[m][0] }}–{{ ranges[m][1] }} cm
+                                        {% else %}
+                                            —
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        <p class="disclaimer">
+            This is a sizing recommendation, not a guarantee of fit.
+            Actual fit varies by brand, garment construction, and personal preference.
+        </p>
+    </div>
+</body>
+</html>
+

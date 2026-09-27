@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Clothing Size Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Clothing Size Finder</h1>
+            <p class="subtitle">
+                Enter your measurements and (optionally) a product link.
+                We'll recommend a size based on measurement comparison.
+            </p>
+        </header>
+
+        <form action="/results" method="POST">
+            <fieldset>
+                <legend>Basic information</legend>
+
+                <label>
+                    Height (e.g. 5'8" or 173 cm)
+                    <input type="text" name="height" placeholder="5'8&quot;">
+                </label>
+
+                <label>
+                    Weight (e.g. 208 lb or 94 kg)
+                    <input type="text" name="weight" placeholder="208 lb">
+                </label>
+
+                <label>
+                    Clothing type
+                    <select name="clothing_type">
+                        <option value="shirt">Shirt / Hoodie / Jacket</option>
+                        <option value="pants">Pants / Jeans / Shorts</option>
+                        <option value="shoes">Shoes</option>
+                        <option value="hat">Hat</option>
+                        <option value="unknown">Not sure</option>
+                    </select>
+                </label>
+
+                <label>
+                    Fit preference
+                    <select name="fit_preference">
+                        <option value="regular">Regular</option>
+                        <option value="fitted">Fitted</option>
+                        <option value="relaxed">Relaxed</option>
+                        <option value="oversized">Oversized</option>
+                        <option value="not_sure">Not sure</option>
+                    </select>
+                </label>
+
+                <label>
+                    Measurement unit (for the fields below)
+                    <select name="unit">
+                        <option value="cm">Centimeters</option>
+                        <option value="in">Inches</option>
+                    </select>
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Body measurements (optional — fill in what you know)</legend>
+
+                <label>
+                    Chest / Bust
+                    <input type="text" name="chest" placeholder="e.g. 102">
+                </label>
+
+                <label>
+                    Waist
+                    <input type="text" name="waist" placeholder="e.g. 84">
+                </label>
+
+                <label>
+                    Hips
+                    <input type="text" name="hips" placeholder="e.g. 100">
+                </label>
+
+                <label>
+                    Shoulder width
+                    <input type="text" name="shoulder" placeholder="e.g. 46">
+                </label>
+
+                <label>
+                    Sleeve length
+                    <input type="text" name="sleeve" placeholder="e.g. 62">
+                </label>
+
+                <label>
+                    Inseam
+                    <input type="text" name="inseam" placeholder="e.g. 80">
+                </label>
+
+                <label>
+                    Thigh
+                    <input type="text" name="thigh" placeholder="e.g. 58">
+                </label>
+
+                <label>
+                    Foot length
+                    <input type="text" name="foot_length" placeholder="e.g. 27">
+                </label>
+
+                <label>
+                    Foot width
+                    <input type="text" name="foot_width" placeholder="e.g. 10">
+                </label>
+
+                <label>
+                    Head circumference
+                    <input type="text" name="head_circumference" placeholder="e.g. 57">
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Product (optional, for now)</legend>
+
+                <label>
+                    Product URL
+                    <input type="url" name="product_url" placeholder="https://example.com/product/hoodie">
+                </label>
+
+                <p class="hint">
+                    URL parsing comes later. For this stage, we use a demo size chart
+                    so you can see the full flow.
+                </p>
+            </fieldset>
+
+            <button type="submit">Find my size</button>
+        </form>
+    </div>
+</body>
+</html>
+
