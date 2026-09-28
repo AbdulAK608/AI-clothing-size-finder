@@ -24,25 +24,25 @@ The core sizing logic is written in plain Python — no machine learning, no pai
 ## How It Works
 User measurements (any units)
 |
-v
+
 Normalize to cm / kg (conversions.py)
 |
-v
+
 Pick relevant measurements by clothing type
 |
-v
+
 Score each size in the chart (sizing.py)
 |
-v
+
 Apply fit-preference tiebreaker
 |
-v
+
 Detect between-size ties and expose alternative
 |
-v
+
 Assign confidence + generate explanation
 |
-v
+
 Render results page (Flask + Jinja2)
 
 text
